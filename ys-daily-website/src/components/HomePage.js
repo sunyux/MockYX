@@ -11,7 +11,7 @@ const HomePage = ({ setActiveSection }) => {
       id: 1,
       title: "Climb",
       description: "Hanging on for dear life, one awkward grip at a time",
-      image: "img/Climb.jpg",
+      image: `${process.env.PUBLIC_URL}/img/Climb.jpg`,
       icon: <Mountain className="w-6 h-6" />,
       category: "Outdoor"
     },
@@ -19,7 +19,7 @@ const HomePage = ({ setActiveSection }) => {
       id: 2,
       title: "Ceramics",
       description: "Making wobbly mugs that somehow hold coffee",
-      image: "img/Ceramics.jpg",
+      image: `${process.env.PUBLIC_URL}/img/Ceramics.jpg`,
       icon: <Amphora className="w-6 h-6" />,
       category: "Creative"
     },
@@ -27,7 +27,7 @@ const HomePage = ({ setActiveSection }) => {
       id: 3,
       title: "Crochet",
       description: "Looping yarn into chaotic masterpieces of coziness",
-      image: "img/Crochet.jpg",
+      image: `${process.env.PUBLIC_URL}/img/Crochet.jpg`,
       icon: <Scissors className="w-6 h-6" />,
       category: "Handcraft"
     },
@@ -35,7 +35,7 @@ const HomePage = ({ setActiveSection }) => {
       id: 4,
       title: "Perlerbeads",
       description: "Turning tiny plastic dots into pixel art magic",
-      image: "img/Perlerbeads.jpg",
+      image: `${process.env.PUBLIC_URL}/img/Perlerbeads.jpg`,
       icon: <Palette className="w-6 h-6" />,
       category: "Nostalgia"
     },
@@ -43,7 +43,7 @@ const HomePage = ({ setActiveSection }) => {
       id: 5,
       title: "Sking",
       description: "Falling down snowy hills in style",
-      image: "img/Sking.jpg",
+      image: `${process.env.PUBLIC_URL}/img/Sking.jpg`,
       icon: <Snowflake className="w-6 h-6" />,
       category: "Adventure"
     },
@@ -51,7 +51,7 @@ const HomePage = ({ setActiveSection }) => {
       id: 6,
       title: "Waving",
       description: "Flowing, flipping, and freestyling with max flair",
-      image: "img/Waving.jpg",
+      image: `${process.env.PUBLIC_URL}/img/Waving.jpg`,
       icon: <Move className="w-6 h-6" />,
       category: "Performance"
     }
@@ -133,6 +133,7 @@ const HomePage = ({ setActiveSection }) => {
   };
 
   return (
+    
     <div className="min-h-screen">
       {/* Hero Section */}
       <section 
@@ -172,11 +173,11 @@ const HomePage = ({ setActiveSection }) => {
   <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8">
     <div className="mb-8">
       <div className="w-1/4 h-1/4 mx-auto rounded-full overflow-hidden border-4 border-white shadow-2xl transform hover:scale-105 transition-transform duration-300">
-        <img
-          src="img/yuxin.jpg"
-          alt="Professional headshot"
-          className="w-full h-full object-cover"
-        />
+      <img
+  src={`${process.env.PUBLIC_URL}/img/yuxin.jpg`}  // ✅ Add this
+  alt="Professional headshot"
+  className="w-full h-full object-cover"
+/>
       </div>
     </div>
     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 animate-fade-in">

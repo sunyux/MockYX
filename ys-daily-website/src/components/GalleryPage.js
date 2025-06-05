@@ -33,19 +33,19 @@ const GalleryPage = () => {
         
         { 
           id: '2', 
-          media_url: 'img/Night.jpg', 
+          media_url: `${process.env.PUBLIC_URL}/img/Night.jpg`, 
           caption: 'Night at art center',
           timestamp: '2025-04-02T12:00:00Z'
         },
         { 
           id: '3', 
-          media_url: 'img/Cheery.jpg', 
+          media_url: `${process.env.PUBLIC_URL}/img/Cheery.jpg`, 
           caption: 'Cheery bloom',
           timestamp: '2024-03-03T12:00:00Z'
         },
         { 
           id: '4', 
-          media_url: 'img/Night2.jpg', 
+          media_url: `${process.env.PUBLIC_URL}/img/Night2.jpg`, 
           caption: 'Night at art center',
           timestamp: '2025-04-02T12:00:00Z'
         },
