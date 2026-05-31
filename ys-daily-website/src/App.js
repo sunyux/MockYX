@@ -38,7 +38,7 @@ const App = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0">
-  <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold pride-gradient-text">
     Yuxin Sun Daily
   </h1>
   <p className="text-sm text-black mt-1">
@@ -56,8 +56,8 @@ const App = () => {
                     onClick={() => setActiveSection(item)}
                     className={`px-3 py-2 rounded-md text-sm font-medium capitalize transition-all duration-300 ${
                       activeSection === item
-                        ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
-                        : 'text-gray-700 hover:text-purple-600 hover:bg-gray-100'
+                        ? 'pride-nav-active shadow-sm'
+                        : 'text-gray-700 hover:text-[#750787] hover:bg-gray-100'
                     }`}
                   >
                     {item}
@@ -91,8 +91,8 @@ const App = () => {
                   }}
                   className={`block px-3 py-2 rounded-md text-base font-medium capitalize w-full text-left transition-all duration-300 ${
                     activeSection === item
-                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'
-                      : 'text-gray-700 hover:text-purple-600 hover:bg-gray-100'
+                      ? 'pride-nav-active shadow-sm'
+                      : 'text-gray-700 hover:text-[#750787] hover:bg-gray-100'
                   }`}
                 >
                   {item}

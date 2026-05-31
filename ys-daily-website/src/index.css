@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --pride-red: #e40303;
+  --pride-orange: #ff8c00;
+  --pride-yellow: #ffed00;
+  --pride-green: #008026;
+  --pride-blue: #004dff;
+  --pride-purple: #750787;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -14,4 +23,262 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Pride theme */
+.pride-gradient-bg {
+  background: linear-gradient(
+    135deg,
+    var(--pride-red),
+    var(--pride-orange),
+    var(--pride-yellow),
+    var(--pride-green),
+    var(--pride-blue),
+    var(--pride-purple)
+  );
+  background-size: 400% 400%;
+  animation: pride-gradient-shift 10s ease infinite;
+}
+
+.pride-gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--pride-red),
+    var(--pride-orange),
+    var(--pride-yellow),
+    var(--pride-green),
+    var(--pride-blue),
+    var(--pride-purple),
+    var(--pride-red)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: pride-text-shimmer 4s linear infinite;
+}
+
+.pride-ring {
+  background: linear-gradient(
+    135deg,
+    var(--pride-red),
+    var(--pride-orange),
+    var(--pride-yellow),
+    var(--pride-green),
+    var(--pride-blue),
+    var(--pride-purple)
+  );
+  background-size: 300% 300%;
+  animation: pride-gradient-shift 6s ease infinite;
+  padding: 4px;
+}
+
+.pride-btn {
+  background: linear-gradient(
+    90deg,
+    var(--pride-red),
+    var(--pride-orange),
+    var(--pride-yellow),
+    var(--pride-green),
+    var(--pride-blue),
+    var(--pride-purple)
+  );
+  background-size: 200% auto;
+  animation: pride-text-shimmer 3s linear infinite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pride-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(117, 7, 135, 0.35);
+}
+
+.pride-stripe-bar {
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--pride-red),
+    var(--pride-orange),
+    var(--pride-yellow),
+    var(--pride-green),
+    var(--pride-blue),
+    var(--pride-purple)
+  );
+}
+
+.pride-nav-active {
+  background: linear-gradient(
+    90deg,
+    var(--pride-red),
+    var(--pride-orange),
+    var(--pride-yellow),
+    var(--pride-green),
+    var(--pride-blue),
+    var(--pride-purple)
+  );
+  background-size: 200% auto;
+  animation: pride-text-shimmer 4s linear infinite;
+  color: white;
+}
+
+.pride-dot-active {
+  background: linear-gradient(
+    90deg,
+    var(--pride-red),
+    var(--pride-purple)
+  );
+}
+
+.pride-icon-bg {
+  background: linear-gradient(
+    135deg,
+    var(--pride-purple),
+    var(--pride-blue),
+    var(--pride-green)
+  );
+}
+
+/* Animations */
+@keyframes pride-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pride-text-shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-in;
+}
+
+.typewriter-cursor {
+  animation: blink 1s infinite;
+  margin-left: 2px;
+  font-weight: 300;
+}
+
+.typewriter-cursor-pride {
+  animation: blink 1s infinite;
+  margin-left: 2px;
+  color: var(--pride-yellow);
+  text-shadow: 0 0 8px rgba(255, 237, 0, 0.8);
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.typewriter-inline {
+  cursor: pointer;
+}
+
+.typewriter-inline:hover {
+  opacity: 0.92;
+}
+
+/* Floating pride confetti dots */
+.pride-confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.pride-confetti span {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0.35;
+  animation: float-up 12s linear infinite;
+}
+
+.pride-confetti span:nth-child(1) {
+  left: 10%;
+  background: var(--pride-red);
+  animation-delay: 0s;
+}
+.pride-confetti span:nth-child(2) {
+  left: 25%;
+  background: var(--pride-orange);
+  animation-delay: 2s;
+}
+.pride-confetti span:nth-child(3) {
+  left: 40%;
+  background: var(--pride-yellow);
+  animation-delay: 4s;
+}
+.pride-confetti span:nth-child(4) {
+  left: 55%;
+  background: var(--pride-green);
+  animation-delay: 1s;
+}
+.pride-confetti span:nth-child(5) {
+  left: 70%;
+  background: var(--pride-blue);
+  animation-delay: 3s;
+}
+.pride-confetti span:nth-child(6) {
+  left: 85%;
+  background: var(--pride-purple);
+  animation-delay: 5s;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translateY(100vh) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateY(-20vh) scale(1);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pride-gradient-bg,
+  .pride-gradient-text,
+  .pride-ring,
+  .pride-btn,
+  .pride-nav-active,
+  .pride-confetti span {
+    animation: none;
+  }
 }

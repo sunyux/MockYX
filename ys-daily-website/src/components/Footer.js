@@ -17,7 +17,8 @@ const DiscordIcon = ({ className = "w-5 h-5" }) => (
 
 const Footer = ({ setActiveSection }) => {
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    <footer className="bg-gray-900 text-white py-12 relative">
+      <div className="absolute top-0 left-0 right-0 pride-stripe-bar" aria-hidden="true" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -45,7 +46,7 @@ const Footer = ({ setActiveSection }) => {
                 <button
                   key={item}
                   onClick={() => setActiveSection(item)}
-                  className="block capitalize hover:text-purple-400 transition-colors duration-300"
+                  className="block capitalize hover:text-[#ff8c00] transition-colors duration-300"
                 >
                   {item}
                 </button>
@@ -60,7 +61,7 @@ const Footer = ({ setActiveSection }) => {
                 href="https://instagram.com/sungulubb" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="hover:text-purple-400 transition-colors duration-300"
+                className="hover:text-[#ff8c00] transition-colors duration-300"
               >
                 <Instagram className="w-6 h-6" />
               </a>
@@ -68,7 +69,7 @@ const Footer = ({ setActiveSection }) => {
                 href="https://www.linkedin.com/in/yuxin-sun-54ab4b325/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="hover:text-purple-400 transition-colors duration-300"
+                className="hover:text-[#ff8c00] transition-colors duration-300"
               >
                 <Linkedin className="w-6 h-6" />
               </a>
@@ -76,7 +77,7 @@ const Footer = ({ setActiveSection }) => {
                 href="https://www.facebook.com/sun.yuxin.107615" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="hover:text-purple-400 transition-colors duration-300"
+                className="hover:text-[#ff8c00] transition-colors duration-300"
               >
                 <Facebook className="w-6 h-6" />
               </a>
