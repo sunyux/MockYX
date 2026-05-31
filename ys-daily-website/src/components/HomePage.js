@@ -11,19 +11,19 @@ import {
   Palette,
   Snowflake,
   Move,
-  ArrowBigDownDash,
+  ArrowDown,
 } from 'lucide-react';
 import Typewriter from './Typewriter';
+import UserConnect from './UserConnect';
 
 const BIO_TEXT =
-  "I'm a Computer Science master's student at Oregon State University, originally from China and now living in Portland. I have full-stack web development experience and a strong interest in UI design, deep learning, and computer vision. I'm also passionate about VR and gaming technologies. Outside of tech, I enjoy trying new hobbies and exploring creative and active pursuits.";
+  "CS master's at Oregon State — from China, living in Portland now. I build websites, mess with UI, and geek out on deep learning + VR. When I'm off the laptop I'm usually trying a new hobby (climb, crochet, ceramics… the list keeps growing).";
 
 const ROTATING_PHRASES = [
-  'Full-Stack Developer',
-  'UI & Design Enthusiast',
-  'Deep Learning Explorer',
-  'Creative Hobby Collector',
-  'Proud to be me 🏳️‍🌈',
+  'probably drinking boba',
+  'learning something new again',
+  'portland + code + crafts',
+  'proud & here 🏳️‍🌈',
 ];
 
 const HomePage = ({ setActiveSection }) => {
@@ -83,113 +83,111 @@ const HomePage = ({ setActiveSection }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentHobby((prev) => (prev + 1) % hobbies.length);
-    }, 5000);
+    }, 6000);
     return () => clearInterval(interval);
   }, [hobbies.length]);
 
-  const nextHobby = () => {
-    setCurrentHobby((prev) => (prev + 1) % hobbies.length);
-  };
-
-  const prevHobby = () => {
+  const nextHobby = () => setCurrentHobby((prev) => (prev + 1) % hobbies.length);
+  const prevHobby = () =>
     setCurrentHobby((prev) => (prev - 1 + hobbies.length) % hobbies.length);
-  };
-
-  const goToHobby = (index) => {
-    setCurrentHobby(index);
-  };
+  const goToHobby = (index) => setCurrentHobby(index);
 
   return (
     <div className="min-h-screen">
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pride-gradient-bg">
-        <div className="pride-confetti" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
+      <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden pride-gradient-bg">
+        <div className="absolute inset-0 bg-black/25" />
 
-        <div className="absolute inset-0 bg-black/20" />
-
-        <div className="relative z-10 text-center text-white px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
-            <div className="w-40 h-40 sm:w-48 sm:h-48 mx-auto rounded-full pride-ring shadow-2xl transform hover:scale-105 transition-transform duration-300">
-              <div className="w-full h-full rounded-full overflow-hidden bg-white">
+        <div className="relative z-10 text-center text-white px-4 sm:px-6 max-w-2xl mx-auto">
+          <div className="mb-6">
+            <div className="w-36 h-36 sm:w-44 sm:h-44 mx-auto rounded-full pride-ring">
+              <div className="w-full h-full rounded-full overflow-hidden bg-stone-900">
                 <img
                   src={`${process.env.PUBLIC_URL}/img/yuxin.jpg`}
-                  alt="Professional headshot"
+                  alt="Yuxin"
                   className="w-full h-full object-cover"
                 />
               </div>
             </div>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 animate-fade-in drop-shadow-lg">
-            Hi, I am{' '}
-            <span className="pride-gradient-text inline-block">
-              Yuxin Sun
-            </span>
+          <p className="text-sm uppercase tracking-[0.2em] text-white/70 mb-2">
+            hey, i'm
+          </p>
+          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl mb-3 animate-fade-in">
+            yuxin sun
           </h1>
 
-          <p className="text-xl sm:text-2xl mb-6 min-h-[2.5rem] font-medium text-white/95">
+          <p className="text-lg sm:text-xl mb-6 min-h-[2rem] text-white/90 italic">
             <Typewriter
               phrases={ROTATING_PHRASES}
-              speed={70}
-              deleteSpeed={40}
-              pauseAfterType={2200}
+              speed={75}
+              deleteSpeed={45}
+              pauseAfterType={2800}
               cursorClassName="typewriter-cursor-pride"
-              className="inline-block"
             />
           </p>
 
-          <div className="text-lg sm:text-xl mb-8 max-w-3xl mx-auto leading-relaxed text-white/90 bg-black/25 backdrop-blur-sm rounded-2xl px-6 py-5 border border-white/20 shadow-xl">
+          <div className="hero-note-card text-left text-base sm:text-lg leading-relaxed text-white/95 px-5 py-4 mb-8">
             <Typewriter
               text={BIO_TEXT}
-              speed={28}
-              startDelay={800}
+              speed={32}
+              startDelay={600}
               cursorClassName="typewriter-cursor-pride"
-              className="text-left block"
             />
           </div>
 
-          <button
-            onClick={() => setActiveSection('contact')}
-            className="pride-btn text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg"
-          >
-            Get In Touch
-          </button>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <button
+              type="button"
+              onClick={() => setActiveSection('contact')}
+              className="pride-btn px-7 py-3 rounded-xl text-base font-medium"
+            >
+              write me a note
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                document.getElementById('connect-wall')?.scrollIntoView({ behavior: 'smooth' })
+              }
+              className="px-7 py-3 rounded-xl text-base font-medium border border-white/40 text-white hover:bg-white/10 transition-colors"
+            >
+              say hi on the wall
+            </button>
+          </div>
         </div>
 
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ArrowBigDownDash className="w-8 h-8 text-white drop-shadow" />
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/50 animate-pulse">
+          <ArrowDown className="w-6 h-6" />
         </div>
       </section>
 
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
-            <span className="pride-gradient-text">My Recent Hobbies</span>
+      <section id="connect-wall" className="paper-section border-t border-stone-200">
+        <div className="pride-accent-line mt-10" />
+        <UserConnect />
+      </section>
+
+      <section className="py-16 sm:py-20 paper-section">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <h2 className="font-display text-4xl text-center text-stone-800 mb-2">
+            stuff i've been into
           </h2>
-          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-            When I'm not coding, I love exploring new creative outlets and adventures.
-            Here's what I've been passionate about lately.
+          <p className="text-center text-stone-500 mb-10 max-w-md mx-auto text-sm">
+            not a portfolio pitch — just hobbies i'm actually doing right now.
           </p>
 
-          <div className="relative bg-gray-50 rounded-2xl p-8 shadow-xl overflow-hidden">
-            <div className="absolute top-0 left-0 right-0 pride-stripe-bar" aria-hidden="true" />
+          <div className="bg-[#fffef9] rounded-2xl p-6 sm:p-8 border border-stone-200/80 shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 pride-stripe-bar" />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mt-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mt-3">
               <div className="relative">
-                <div className="relative h-80 overflow-hidden rounded-xl shadow-lg ring-2 ring-transparent hover:ring-offset-2 transition-all">
+                <div className="relative h-72 sm:h-80 overflow-hidden rounded-xl border border-stone-200">
                   {hobbies.map((hobby, index) => (
                     <div
                       key={hobby.id}
-                      className={`absolute inset-0 transition-all duration-700 ease-in-out ${
+                      className={`absolute inset-0 transition-all duration-700 ${
                         index === currentHobby
-                          ? 'opacity-100 transform translate-x-0'
-                          : 'opacity-0 transform translate-x-full'
+                          ? 'opacity-100'
+                          : 'opacity-0 pointer-events-none'
                       }`}
                     >
                       <img
@@ -197,88 +195,75 @@ const HomePage = ({ setActiveSection }) => {
                         alt={hobby.title}
                         className="w-full h-full object-cover"
                       />
-                      <div className="absolute top-4 left-4">
-                        <span className="bg-white/90 text-gray-800 px-3 py-1 rounded-full text-sm font-medium">
-                          {hobby.category}
-                        </span>
-                      </div>
+                      <span className="absolute top-3 left-3 bg-[#fffef9]/90 text-stone-700 px-2.5 py-1 rounded-md text-xs">
+                        {hobby.category}
+                      </span>
                     </div>
                   ))}
                 </div>
-
                 <button
+                  type="button"
                   onClick={prevHobby}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-300"
-                  aria-label="Previous hobby"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-[#fffef9]/90 p-2 rounded-full border border-stone-200"
+                  aria-label="Previous"
                 >
-                  <ChevronLeft className="w-5 h-5 text-gray-800" />
+                  <ChevronLeft className="w-5 h-5" />
                 </button>
                 <button
+                  type="button"
                   onClick={nextHobby}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-3 shadow-lg transition-all duration-300"
-                  aria-label="Next hobby"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#fffef9]/90 p-2 rounded-full border border-stone-200"
+                  aria-label="Next"
                 >
-                  <ChevronRight className="w-5 h-5 text-gray-800" />
+                  <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="space-y-6">
-                <div className="flex items-center space-x-3">
-                  <div className="pride-icon-bg text-white p-3 rounded-lg shadow-md">
-                    {hobbies[currentHobby].icon}
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-gray-800">
+              <div>
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-stone-700">{hobbies[currentHobby].icon}</span>
+                  <h3 className="font-display text-3xl text-stone-800">
                     {hobbies[currentHobby].title}
                   </h3>
                 </div>
-
-                <p className="text-gray-600 text-lg leading-relaxed">
+                <p className="text-stone-600 leading-relaxed mb-4">
                   {hobbies[currentHobby].description}
                 </p>
-
-                <div className="flex space-x-2">
+                <div className="flex gap-2">
                   {hobbies.map((_, index) => (
                     <button
                       key={index}
+                      type="button"
                       onClick={() => goToHobby(index)}
-                      className={`h-3 rounded-full transition-all duration-300 ${
+                      className={`h-2 rounded-full transition-all ${
                         index === currentHobby
-                          ? 'pride-dot-active w-8'
-                          : 'bg-gray-300 hover:bg-gray-400 w-3'
+                          ? 'pride-dot-active w-7'
+                          : 'bg-stone-300 w-2 hover:bg-stone-400'
                       }`}
-                      aria-label={`Go to hobby ${index + 1}`}
+                      aria-label={`Hobby ${index + 1}`}
                     />
                   ))}
                 </div>
               </div>
             </div>
 
-            <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="mt-6 grid grid-cols-3 sm:grid-cols-6 gap-2">
               {hobbies.map((hobby, index) => (
                 <button
                   key={hobby.id}
+                  type="button"
                   onClick={() => goToHobby(index)}
-                  className={`relative group overflow-hidden rounded-lg transition-all duration-300 ${
+                  className={`relative rounded-lg overflow-hidden border-2 transition-all ${
                     index === currentHobby
-                      ? 'ring-4 ring-[#750787] shadow-lg scale-105'
-                      : 'hover:scale-105 hover:shadow-md'
+                      ? 'border-stone-800 scale-[1.02]'
+                      : 'border-transparent opacity-80 hover:opacity-100'
                   }`}
                 >
                   <img
                     src={hobby.image}
                     alt={hobby.title}
-                    className="w-full h-20 object-cover group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-16 object-cover"
                   />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                    <div className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      {hobby.icon}
-                    </div>
-                  </div>
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2">
-                    <p className="text-white text-xs font-medium truncate">
-                      {hobby.title}
-                    </p>
-                  </div>
                 </button>
               ))}
             </div>
@@ -286,42 +271,32 @@ const HomePage = ({ setActiveSection }) => {
         </div>
       </section>
 
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold text-center mb-16">
-            <span className="pride-gradient-text">What I Do Technical</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+      <section className="py-16 border-t border-stone-200 bg-[#f5f1ea]">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <h2 className="font-display text-3xl text-stone-800 mb-8">elsewhere on the internet</h2>
+          <div className="grid sm:grid-cols-2 gap-4">
             {[
               {
-                icon: <Code className="w-12 h-12" />,
-                title: 'Web Developer',
-                desc: 'Visit my personal website',
+                icon: <Code className="w-8 h-8 mx-auto" />,
+                title: 'dev site',
                 url: 'https://sunyux.github.io/yuxin/',
               },
               {
-                icon: <Box className="w-12 h-12" />,
-                title: '3D Module Creator',
-                desc: 'Explore my 3D models gallery',
+                icon: <Box className="w-8 h-8 mx-auto" />,
+                title: '3d models',
                 url: 'https://sunyux.github.io/ModelsGallery/',
               },
-            ].map(({ icon, title, desc, url }, idx) => (
-              <div
-                key={idx}
-                className="flex flex-col items-center text-center p-6 border rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white border-t-4 overflow-hidden relative"
+            ].map(({ icon, title, url }) => (
+              <a
+                key={url}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block p-6 bg-[#fffef9] rounded-xl border border-stone-200 hover:border-stone-400 transition-colors"
               >
-                <div className="absolute top-0 left-0 right-0 pride-stripe-bar" />
-                <div className="mb-4 mt-2 pride-gradient-text">{icon}</div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-800">{title}</h3>
-                <a
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="pride-gradient-text font-medium hover:underline"
-                >
-                  {desc}
-                </a>
-              </div>
+                <div className="text-stone-600 mb-2">{icon}</div>
+                <span className="font-medium text-stone-800">{title}</span>
+              </a>
             ))}
           </div>
         </div>
