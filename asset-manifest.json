@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/MockYX/static/css/main.bc78c17d.css",
-    "main.js": "/MockYX/static/js/main.98733dc6.js",
+    "main.css": "/MockYX/static/css/main.9a2ab9b0.css",
+    "main.js": "/MockYX/static/js/main.7dd5c2a5.js",
     "static/js/453.e54740f9.chunk.js": "/MockYX/static/js/453.e54740f9.chunk.js",
     "index.html": "/MockYX/index.html",
-    "main.bc78c17d.css.map": "/MockYX/static/css/main.bc78c17d.css.map",
-    "main.98733dc6.js.map": "/MockYX/static/js/main.98733dc6.js.map",
+    "main.9a2ab9b0.css.map": "/MockYX/static/css/main.9a2ab9b0.css.map",
+    "main.7dd5c2a5.js.map": "/MockYX/static/js/main.7dd5c2a5.js.map",
     "453.e54740f9.chunk.js.map": "/MockYX/static/js/453.e54740f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.bc78c17d.css",
-    "static/js/main.98733dc6.js"
+    "static/css/main.9a2ab9b0.css",
+    "static/js/main.7dd5c2a5.js"
   ]
 }
