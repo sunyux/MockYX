@@ -52,8 +52,8 @@ const App = () => {
               onClick={() => setActiveSection('home')}
               className="text-left"
             >
-              <h1 className="font-display text-2xl text-stone-800 leading-tight">
-                yuxin's daily
+              <h1 className="font-nabla text-2xl text-stone-800 leading-tight">
+                Yuxin Sun Daily
               </h1>
               <p className="text-xs text-stone-500 -mt-0.5">
                 portland · hobbies · random snaps
