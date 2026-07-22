@@ -2,16 +2,631 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --pride-red: #e40303;
+  --pride-orange: #ff8c00;
+  --pride-yellow: #ffed00;
+  --pride-green: #008026;
+  --pride-blue: #004dff;
+  --pride-purple: #750787;
+  --paper: #faf7f2;
+  --ink: #2c2825;
+  --muted: #6b6560;
+  --crawl-gold: #ffe81f;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.font-display {
+  font-family: 'Caveat', cursive;
+  font-weight: 600;
+}
+
+/* Nabla — colorful display title (Google Fonts) */
+.font-nabla {
+  font-family: 'Nabla', system-ui, sans-serif;
+  font-weight: 400;
+  font-synthesis: none;
+}
+
+/* Original pride rainbow hero — slightly slower than v1 (was 10s → 14s) */
+.pride-gradient-bg {
+  background: linear-gradient(
+    -45deg,
+    var(--pride-red),
+    var(--pride-orange),
+    var(--pride-yellow),
+    var(--pride-green),
+    var(--pride-blue),
+    var(--pride-purple),
+    #667eea,
+    #f093fb
+  );
+  background-size: 400% 400%;
+  animation: pride-gradient-shift 14s ease infinite;
+}
+
+.pride-gradient-text {
+  background: linear-gradient(
+    90deg,
+    var(--pride-red),
+    var(--pride-orange),
+    var(--pride-yellow),
+    var(--pride-green),
+    var(--pride-blue),
+    var(--pride-purple),
+    var(--pride-red)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: pride-text-shimmer 7s linear infinite;
+}
+
+.pride-ring {
+  background: linear-gradient(
+    135deg,
+    var(--pride-red),
+    var(--pride-orange),
+    var(--pride-yellow),
+    var(--pride-green),
+    var(--pride-blue),
+    var(--pride-purple)
+  );
+  background-size: 300% 300%;
+  animation: pride-gradient-shift 18s ease infinite;
+  padding: 4px;
+}
+
+.pride-btn {
+  background: linear-gradient(
+    90deg,
+    var(--pride-red),
+    var(--pride-orange),
+    var(--pride-yellow),
+    var(--pride-green),
+    var(--pride-blue),
+    var(--pride-purple)
+  );
+  background-size: 200% auto;
+  animation: pride-text-shimmer 8s linear infinite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pride-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(117, 7, 135, 0.35);
+}
+
+.pride-stripe-bar {
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--pride-red),
+    var(--pride-orange),
+    var(--pride-yellow),
+    var(--pride-green),
+    var(--pride-blue),
+    var(--pride-purple)
+  );
+}
+
+.pride-nav-active {
+  background: linear-gradient(
+    90deg,
+    var(--pride-red),
+    var(--pride-orange),
+    var(--pride-yellow),
+    var(--pride-green),
+    var(--pride-blue),
+    var(--pride-purple)
+  );
+  background-size: 200% auto;
+  animation: pride-text-shimmer 8s linear infinite;
+  color: white;
+}
+
+.pride-dot-active {
+  background: linear-gradient(90deg, var(--pride-red), var(--pride-purple));
+}
+
+.pride-icon-bg {
+  background: linear-gradient(
+    135deg,
+    var(--pride-purple),
+    var(--pride-blue),
+    var(--pride-green)
+  );
+}
+
+.pride-accent-line {
+  height: 4px;
+  width: 64px;
+  margin: 0 auto 1rem;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--pride-red),
+    var(--pride-orange),
+    var(--pride-yellow),
+    var(--pride-green),
+    var(--pride-blue),
+    var(--pride-purple)
+  );
+  background-size: 200% 100%;
+  animation: pride-text-shimmer 10s linear infinite;
+}
+
+@keyframes pride-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pride-text-shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-in;
+}
+
+.typewriter-cursor-pride {
+  animation: blink 1s infinite;
+  margin-left: 2px;
+  color: var(--crawl-gold);
+  text-shadow: 0 0 8px rgba(255, 232, 31, 0.8);
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.typewriter-inline {
+  cursor: pointer;
+}
+
+/* —— Star Wars–style intro crawl (readable) —— */
+.crawl-wrapper {
+  width: 100%;
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.crawl-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.crawl-control-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #1a1a1a;
+  background: var(--crawl-gold);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.15s, opacity 0.15s;
+}
+
+.crawl-control-btn:hover {
+  transform: scale(1.04);
+  opacity: 0.95;
+}
+
+.crawl-hint {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.crawl-scene {
+  position: relative;
+  height: 14rem;
+  overflow: hidden;
+  perspective: 320px;
+  cursor: pointer;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 78%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 78%,
+    transparent 100%
+  );
+}
+
+.crawl-scene-paused .crawl-content-animate {
+  animation-play-state: paused;
+}
+
+.crawl-content {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 92%;
+  max-width: 32rem;
+  transform: translateX(-50%) rotateX(20deg);
+  transform-origin: 50% 100%;
+  text-align: justify;
+  text-align-last: center;
+}
+
+.crawl-content-animate {
+  animation: crawl-scroll-up 42s linear forwards;
+}
+
+@keyframes crawl-scroll-up {
+  0% {
+    transform: translateX(-50%) rotateX(22deg) translateY(105%);
+    opacity: 0.3;
+  }
+  8% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) rotateX(22deg) translateY(-115%);
+    opacity: 0.2;
+  }
+}
+
+.crawl-episode {
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--crawl-gold);
+  text-shadow: 0 0 12px rgba(255, 232, 31, 0.5);
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.08em;
+}
+
+.crawl-paragraph {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--crawl-gold);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 232, 31, 0.25);
+  margin-bottom: 1.1rem;
+}
+
+@media (min-width: 640px) {
+  .crawl-scene {
+    height: 16rem;
+  }
+  .crawl-paragraph {
+    font-size: 1.15rem;
+    line-height: 1.7;
+  }
+  .crawl-episode {
+    font-size: 1.5rem;
+  }
+}
+
+.crawl-static-box {
+  text-align: left;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 232, 31, 0.35);
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  backdrop-filter: blur(8px);
+}
+
+.crawl-static-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--crawl-gold);
+  margin-bottom: 0.75rem;
+  opacity: 0.9;
+}
+
+.crawl-static-text {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #fff;
+  margin-bottom: 0.85rem;
+}
+
+.crawl-static-text:last-of-type {
+  margin-bottom: 0;
+}
+
+.crawl-replay-btn {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--crawl-gold);
+  background: transparent;
+  border: 1px solid rgba(255, 232, 31, 0.5);
+  border-radius: 999px;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.crawl-replay-btn:hover {
+  background: rgba(255, 232, 31, 0.15);
+}
+
+/* Connect card */
+.connect-card {
+  background: #fffef9;
+  border: 1px solid #e8e2d9;
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 24px rgba(44, 40, 37, 0.06);
+}
+
+.connect-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e0d9cf;
+  border-radius: 0.75rem;
+  background: #fffef9;
+  font-size: 0.95rem;
+  color: var(--ink);
+  transition: border-color 0.2s;
+}
+
+.connect-input:focus {
+  outline: none;
+  border-color: var(--pride-purple);
+}
+
+.connect-vibe-chip {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid #e0d9cf;
+  background: #fffef9;
+  color: var(--muted);
+  transition: all 0.2s;
+}
+
+.connect-vibe-chip-active {
+  border-color: var(--pride-purple);
+  background: #f3edf8;
+  color: var(--ink);
+}
+
+.connect-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: var(--ink);
+  color: #faf7f2;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: opacity 0.2s;
+}
+
+.connect-submit:disabled {
+  opacity: 0.6;
+}
+
+.connect-submit:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.connect-wall-note {
+  background: #f5f1ea;
+  border-radius: 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-left: 3px solid var(--pride-purple);
+}
+
+.paper-section {
+  background: var(--paper);
+}
+
+/* Julie — DesktopCat web pet (no todo / timer) */
+.desktop-cat {
+  position: fixed;
+  z-index: 80;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.28));
+  transition: filter 0.2s ease;
+}
+
+.desktop-cat:active {
+  cursor: grabbing;
+}
+
+.desktop-cat img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  display: block;
+}
+
+.desktop-cat-tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 4px);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #2c2825;
+  background: #fffef9;
+  border: 1px solid #e8e2d9;
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+.desktop-cat-who {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  z-index: 2;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: #2c2825;
+  background: #fffef9;
+  border: 1px solid #e8e2d9;
+  border-radius: 999px;
+  padding: 0.15rem 0.45rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.desktop-cat-who:hover {
+  background: #ffed00;
+}
+
+.desktop-cat-card {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  width: min(260px, calc(100vw - 24px));
+  background: #fffef9;
+  border: 1px solid #e8e2d9;
+  border-radius: 1rem;
+  padding: 0.85rem 1rem 1rem;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+  color: #2c2825;
+  text-align: left;
+  cursor: default;
+  z-index: 3;
+}
+
+.desktop-cat-card-right {
+  left: 0;
+}
+
+.desktop-cat-card-left {
+  right: 0;
+  left: auto;
+}
+
+.desktop-cat-card-close {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  padding: 0.2rem;
+  border-radius: 999px;
+  color: #6b6560;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.desktop-cat-card-close:hover {
+  background: #f5f1ea;
+  color: #2c2825;
+}
+
+.desktop-cat-card-name {
+  font-family: 'Caveat', cursive;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 1.5rem 0.35rem 0;
+  line-height: 1.2;
+}
+
+.desktop-cat-card-body {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #5a544e;
+  margin: 0 0 0.75rem;
+}
+
+.desktop-cat-learn {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #750787;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.desktop-cat-learn:hover {
+  color: #004dff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pride-gradient-bg,
+  .pride-gradient-text,
+  .pride-ring,
+  .pride-btn,
+  .pride-nav-active,
+  .pride-accent-line,
+  .crawl-content-animate {
+    animation: none;
+  }
+
+  .crawl-content-animate {
+    transform: translateX(-50%) rotateX(0deg) translateY(0);
+    position: relative;
+  }
+
+  .crawl-scene {
+    height: auto;
+    mask-image: none;
+  }
 }
