@@ -517,6 +517,98 @@ body {
   pointer-events: none;
 }
 
+.desktop-cat-who {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  z-index: 2;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  color: #2c2825;
+  background: #fffef9;
+  border: 1px solid #e8e2d9;
+  border-radius: 999px;
+  padding: 0.15rem 0.45rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.desktop-cat-who:hover {
+  background: #ffed00;
+}
+
+.desktop-cat-card {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  width: min(260px, calc(100vw - 24px));
+  background: #fffef9;
+  border: 1px solid #e8e2d9;
+  border-radius: 1rem;
+  padding: 0.85rem 1rem 1rem;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+  color: #2c2825;
+  text-align: left;
+  cursor: default;
+  z-index: 3;
+}
+
+.desktop-cat-card-right {
+  left: 0;
+}
+
+.desktop-cat-card-left {
+  right: 0;
+  left: auto;
+}
+
+.desktop-cat-card-close {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  padding: 0.2rem;
+  border-radius: 999px;
+  color: #6b6560;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.desktop-cat-card-close:hover {
+  background: #f5f1ea;
+  color: #2c2825;
+}
+
+.desktop-cat-card-name {
+  font-family: 'Caveat', cursive;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 1.5rem 0.35rem 0;
+  line-height: 1.2;
+}
+
+.desktop-cat-card-body {
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: #5a544e;
+  margin: 0 0 0.75rem;
+}
+
+.desktop-cat-learn {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #750787;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.desktop-cat-learn:hover {
+  color: #004dff;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pride-gradient-bg,
   .pride-gradient-text,
