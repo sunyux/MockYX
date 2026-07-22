@@ -6,6 +6,7 @@ import GalleryPage from './components/GalleryPage';
 import ContactPage from './components/ContactPage';
 import AboutPage from './components/AboutPage';
 import Footer from './components/Footer';
+import DesktopCat from './components/DesktopCat';
 
 const NAV = [
   { id: 'home', label: 'home' },
@@ -108,6 +109,7 @@ const App = () => {
       <main className="pt-16">{renderSection()}</main>
 
       <Footer setActiveSection={setActiveSection} />
+      <DesktopCat />
     </div>
   );
 };

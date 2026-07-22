@@ -477,6 +477,46 @@ body {
   background: var(--paper);
 }
 
+/* Julie — DesktopCat web pet (no todo / timer) */
+.desktop-cat {
+  position: fixed;
+  z-index: 80;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.28));
+  transition: filter 0.2s ease;
+}
+
+.desktop-cat:active {
+  cursor: grabbing;
+}
+
+.desktop-cat img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  display: block;
+}
+
+.desktop-cat-tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 4px);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #2c2825;
+  background: #fffef9;
+  border: 1px solid #e8e2d9;
+  border-radius: 999px;
+  padding: 0.25rem 0.6rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .pride-gradient-bg,
   .pride-gradient-text,
