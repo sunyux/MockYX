@@ -94,7 +94,7 @@ export default function App() {
   return (
     <div className="cv">
       <header className="bar">
-        <a href="#top" className="mark" aria-label="Home"><img src={`${PUB}/cat-icon.png`} alt="" /><span>yuxin</span></a>
+        <a href="#top" className="mark">YS</a>
         <nav>
           {NAV.map(([id, label]) => <a key={id} href={`#${id}`}>{label}</a>)}
         </nav>
