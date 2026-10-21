@@ -117,7 +117,7 @@ a:hover > .arrow, a:hover .arrow { transform: translate(3px, -3px); }
 
 /* about */
 .about { display: grid; gap: clamp(24px, 4vw, 64px); grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); margin-top: 48px; align-items: start; }
-.about > img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+.about > img { width: 100%; height: auto; }
 .big-p { margin: 0 0 40px; font-size: clamp(22px, 2.6vw, 38px); line-height: 1.15; letter-spacing: -.02em; }
 .skills { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
 .skills h4 { margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); }
