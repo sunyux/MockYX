@@ -90,6 +90,31 @@ export default function App() {
     setPainted(prev => new Set(prev).add(el.dataset.paint));
   };
 
+  // Scrolling paints too: once you start scrolling, each part turns colorful as it comes into view.
+  useEffect(() => {
+    const add = (key) => setPainted(prev => (prev.has(key) ? prev : new Set(prev).add(key)));
+    const startY = window.scrollY;
+    let scrolled = false;
+    const io = new IntersectionObserver(entries => {
+      if (!scrolled) return;
+      entries.forEach(e => { if (e.isIntersecting) add(e.target.dataset.paint); });
+    }, { rootMargin: '-35% 0px -35% 0px' });
+    const els = document.querySelectorAll('[data-paint]:not(.bar)');
+    els.forEach(el => io.observe(el));
+    const onScroll = () => {
+      if (Math.abs(window.scrollY - startY) < 40) return;
+      scrolled = true;
+      add('bar');
+      // Re-check what is in the middle band now that scrolling has started.
+      els.forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight * 0.65 && r.bottom > window.innerHeight * 0.35) add(el.dataset.paint);
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => { io.disconnect(); window.removeEventListener('scroll', onScroll); };
+  }, []);
+
   // "Live" CV: a ticking Portland clock in the header.
   useEffect(() => {
     const tick = () =>
