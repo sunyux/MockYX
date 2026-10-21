@@ -117,7 +117,12 @@ a:hover > .arrow, a:hover .arrow { transform: translate(3px, -3px); }
 
 /* about */
 .about { display: grid; gap: clamp(24px, 4vw, 64px); grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); margin-top: 48px; align-items: start; }
-.about > img { width: 100%; height: auto; }
+.memes { display: grid; gap: 16px; }
+.memes img { width: 100%; height: auto; }
+.nerd { margin: 0; padding: 24px 20px; background: var(--acid); text-align: center; border: 2px solid var(--ink); }
+.nerd-face { display: block; width: min(100%, 200px); margin: 0 auto; }
+.nerd figcaption { margin-top: 12px; font-family: var(--mono); font-size: 15px; text-transform: lowercase; }
+.open-learn { margin: -16px 0 40px; display: inline-block; padding: 8px 14px; background: var(--ink); color: var(--acid); font-family: var(--mono); font-size: 15px; text-transform: uppercase; }
 .big-p { margin: 0 0 40px; font-size: clamp(22px, 2.6vw, 38px); line-height: 1.15; letter-spacing: -.02em; }
 .skills { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
 .skills h4 { margin: 0 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); }

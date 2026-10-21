@@ -167,9 +167,26 @@ export default function App() {
       <section id="about" className="block">
         <h2 className="huge">About</h2>
         <div className="about">
-          <img src={`${PUB}/work/Job.jpg`} alt="Meme: can someone give me a job plz" loading="lazy" />
+          <div className="memes">
+            <img src={`${PUB}/work/Job.jpg`} alt="Meme: can someone give me a job plz" loading="lazy" />
+            <figure className="nerd" aria-label="Nerd meme: erm, actually, I'm open to learning everything">
+              <svg className="nerd-face" viewBox="0 0 160 120" aria-hidden="true">
+                <g stroke="#0d0d0d" strokeWidth="3" strokeLinejoin="round" strokeLinecap="round">
+                  <path d="M30 84 V30 a8 8 0 0 1 16 0 V84" fill="#ffcc4d" /><rect x="16" y="76" width="44" height="38" rx="14" fill="#ffcc4d" /><path d="M24 88 h18 M24 100 h18" fill="none" />
+                  <circle cx="100" cy="62" r="50" fill="#ffcc4d" />
+                  <circle cx="80" cy="54" r="15" fill="#fff" /><circle cx="120" cy="54" r="15" fill="#fff" />
+                  <path d="M95 54 h10 M65 50 l-14 -4 M135 50 l14 -4" fill="none" />
+                  <circle cx="80" cy="56" r="5" fill="#0d0d0d" /><circle cx="120" cy="56" r="5" fill="#0d0d0d" />
+                  <path d="M80 84 q20 14 40 0" fill="none" />
+                  <path d="M93 89 h14 v10 h-14 Z" fill="#fff" /><path d="M100 89 v10" />
+                </g>
+              </svg>
+              <figcaption>“erm, actually… i’m open to learning <b>everything</b>”</figcaption>
+            </figure>
+          </div>
           <div>
             <p className="big-p">M.Eng. in Computer Science from Oregon State, B.S. from Portland State. I work across full-stack web, 3D and data visualization, and I love anything that turns code into something you can play with.</p>
+            <p className="open-learn">I’m open to learning everything. New language, new framework, new field: hand it over.</p>
             <div className="skills">
               {Object.entries(SKILLS).map(([k, list]) => (
                 <div key={k}><h4>{k}</h4><ul>{list.map(s => <li key={s}>{s}</li>)}</ul></div>
