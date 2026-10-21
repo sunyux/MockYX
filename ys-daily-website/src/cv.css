@@ -326,3 +326,10 @@ a:hover > .arrow, a:hover .arrow { transform: translate(3px, -3px); }
 @media (prefers-reduced-motion: reduce) {
   .bar nav a:hover, .btn:hover, .proj-links a:hover, .more:hover, .contacts a:hover, .huge:hover, .proj h3:hover, .sub:hover, .hero h1:hover, .mark:hover { animation: none; }
 }
+.desktop-cat-zzz {
+  position: absolute; right: 18px; top: 10px; font: 800 18px var(--display); color: var(--ink); pointer-events: none;
+}
+.desktop-cat-zzz, .desktop-cat-zzz b, .desktop-cat-zzz i { display: inline-block; font-style: normal; animation: zzz 2.4s ease-in-out infinite; }
+.desktop-cat-zzz b { font-size: 14px; animation-delay: .4s; }
+.desktop-cat-zzz i { font-size: 11px; animation-delay: .8s; }
+@keyframes zzz { 0%, 100% { transform: translateY(0); opacity: .3; } 50% { transform: translateY(-8px); opacity: 1; } }

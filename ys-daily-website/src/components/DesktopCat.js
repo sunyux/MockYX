@@ -24,10 +24,39 @@ const ANIM = {
   working: `${process.env.PUBLIC_URL}/img/cat/running.gif`,
 };
 
-const PLAY_LINES = ['mine!', 'boop', 'got it~', 'again!', 'mrrp'];
-const PERCH_LINES = ['nice view', 'i live here now', 'reading yuxin’s cv', 'comfy', 'hello up here'];
+const PLAY_LINES = ['mine!', 'boop', 'got it~', 'again!', 'mrrp', 'you saw nothing', 'i am a fearsome hunter'];
+const PERCH_LINES = ['nice view', 'i live here now', 'comfy', 'hello down there', 'this is my desk now'];
+const PET_LINES = ['purrrr', 'ok… one more', 'yes. there.', 'acceptable', 'mrrrow 💕'];
+const ALOOF_LINES = ['…', 'not now', 'i’m busy', 'hm.', 'did i say you could?'];
+const ANNOYED_LINES = ['hmph.', 'that’s enough', 'rude.', 'i’m leaving', 'HISS (politely)'];
+const DRAG_LINES = ['put me down!!', 'unhand me', 'i can walk, thanks', 'this is kidnapping'];
+const SLEEPY_LINES = ['five more minutes…', 'i was dreaming of tuna', 'why', 'zz… what'];
+const BORED_LINES = ['hey. pet me.', 'hello?? cat here', 'pay attention to me', 'i’m bored'];
+const SCROLL_LINES = ['whoa slow down', 'weee', 'my whiskers!'];
+const ZOOMIE_LINES = ['ZOOMIES', 'nyoooom', '3am energy'];
+
+// What she thinks about the thing she's sitting on.
+const perchLine = (el) => {
+  if (!el) return pick(PERCH_LINES);
+  const name = el.querySelector && el.querySelector('h3');
+  if (el.classList.contains('proj') && name) return pick([`${name.textContent}? yuxin made that`, `i helped with ${name.textContent}`, 'open it, it’s good']);
+  if (el.classList.contains('tile')) return pick(['old work. still cute', 'vintage yuxin', 'i sat on this keyboard']);
+  if (el.classList.contains('frame')) return pick(['3d? i prefer 3 naps', 'the models are fine i guess']);
+  if (el.closest && el.closest('.timeline')) return pick(['hire yuxin. i need treats', 'impressive, right?', 'this one’s true, i was there']);
+  if (el.classList.contains('btn')) return pick(['press it. go on', 'i’m a button now']);
+  if (el.classList.contains('huge')) return pick([`sitting on “${el.textContent.replace(/\d+$/, '').trim().toLowerCase()}”`, 'big letters, warm letters', ...PERCH_LINES]);
+  return pick(PERCH_LINES);
+};
+
+const isNight = () => {
+  const h = Number(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles', hour: 'numeric', hour12: false }));
+  return h >= 23 || h < 7;
+};
 
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
+
+const affectionNeeded = (mood, now) =>
+  now - mood.lastSeen > 40000 && now - mood.lastBored > 60000 && mood.annoyed < 30;
 
 const perchSurface = (el) => {
   const r = el.getBoundingClientRect();
@@ -72,11 +101,20 @@ const DesktopCat = () => {
   const tipTimerRef = useRef(null);
   const hoveredRef = useRef(false);
   const showIntroRef = useRef(false);
+  const [asleep, setAsleep] = useState(false);
+  // Mood: energy drains with play, affection grows with pets, patience runs out when bothered.
+  const moodRef = useRef({ energy: 70 + Math.random() * 30, affection: 40, annoyed: 0, lastPet: 0, lastSeen: Date.now(), lastBored: Date.now() });
+  const sleepingRef = useRef(false);
 
-  const showTip = useCallback((text) => {
+  const showTip = useCallback((text, ms = 2200) => {
     setTip(text);
     clearTimeout(tipTimerRef.current);
-    tipTimerRef.current = setTimeout(() => setTip(''), 2200);
+    tipTimerRef.current = setTimeout(() => setTip(''), ms);
+  }, []);
+
+  const setSleeping = useCallback((v) => {
+    sleepingRef.current = v;
+    setAsleep(v);
   }, []);
 
   const setAnim = useCallback((name) => {
@@ -168,6 +206,35 @@ const DesktopCat = () => {
   }, [jumpTo]);
 
   const chooseNext = useCallback(() => {
+    const mood = moodRef.current;
+    const now = Date.now();
+    // Tired (or it's late in Portland) → nap.
+    if (mood.energy < 18 || (isNight() && Math.random() < 0.35)) {
+      modeRef.current = 'idle';
+      velRef.current = 0;
+      setAnim('belly');
+      setSleeping(true);
+      modeEndsRef.current = now + (14 + Math.random() * 16) * 1000;
+      return;
+    }
+    // Ignored for a while → come find the cursor and complain.
+    if (affectionNeeded(mood, now) && !perchRef.current) {
+      mood.lastBored = now;
+      const m = mouseRef.current;
+      if (m.x > 0) startWalking(m.x - (xRef.current + SIZE / 2));
+      else startWalking();
+      showTip(pick(BORED_LINES), 2600);
+      return;
+    }
+    // Full of beans → zoomies.
+    if (mood.energy > 80 && Math.random() < 0.12 && !perchRef.current) {
+      modeRef.current = 'zoomies';
+      velRef.current = (Math.random() > 0.5 ? 1 : -1) * RUN * 2.2;
+      setAnim(velRef.current > 0 ? 'walkingRight' : 'walkingLeft');
+      modeEndsRef.current = now + 3500;
+      showTip(pick(ZOOMIE_LINES));
+      return;
+    }
     const roll = Math.random() * 100;
     const perched = !!perchRef.current;
     if (roll < 26) startWalking();
@@ -184,7 +251,7 @@ const DesktopCat = () => {
     else if (roll < 82) playSpecial('waving', 1.5);
     else if (roll < 85) playSpecial('belly', 2.4);
     else enterIdle(2.5 + Math.random() * 4);
-  }, [enterIdle, jumpTo, playSpecial, startChase, startWalking]);
+  }, [enterIdle, jumpTo, playSpecial, setAnim, setSleeping, showTip, startChase, startWalking]);
 
   useEffect(() => {
     showIntroRef.current = showIntro;
@@ -244,6 +311,15 @@ const DesktopCat = () => {
       if (draggingRef.current || showIntroRef.current) return;
 
       const mode = modeRef.current;
+      const mood = moodRef.current;
+      const active = mode === 'walking' || mode === 'chase' || mode === 'zoomies' || mode === 'jump';
+      mood.energy = Math.max(0, Math.min(100, mood.energy + (active ? -0.06 : sleepingRef.current ? 0.25 : 0.01)));
+      mood.annoyed = Math.max(0, mood.annoyed - 0.04);
+      if (sleepingRef.current && now >= modeEndsRef.current) {
+        setSleeping(false);
+        mood.energy = Math.max(mood.energy, 75);
+        showTip(pick(['*stretch*', 'i’m up', 'what did i miss']));
+      }
       let x = xRef.current;
       let y = yRef.current;
 
@@ -270,7 +346,7 @@ const DesktopCat = () => {
           jumpRef.current = null;
           perchRef.current = j.el;
           y = toY;
-          if (j.el && Math.random() < 0.5) showTip(pick(PERCH_LINES));
+          if (j.el && Math.random() < 0.6) showTip(perchLine(j.el), 2600);
           if (b.vx || b.vy) startChase();
           else enterIdle(2 + Math.random() * 3);
         }
@@ -287,6 +363,13 @@ const DesktopCat = () => {
         x += velRef.current;
         if (x <= min) { x = min; velRef.current = SPEED; setAnim('walkingRight'); }
         else if (x >= max) { x = max; velRef.current = -SPEED; setAnim('walkingLeft'); }
+      } else if (mode === 'zoomies') {
+        x += velRef.current;
+        if (x <= 8 || x >= W - SIZE - 8) {
+          velRef.current = -velRef.current;
+          setAnim(velRef.current > 0 ? 'walkingRight' : 'walkingLeft');
+        }
+        if (now > modeEndsRef.current) enterIdle(3);
       } else if (mode === 'chase') {
         // Run at the yarn, bat it when close.
         const target = b.x + BALL / 2 - SIZE / 2;
@@ -302,13 +385,13 @@ const DesktopCat = () => {
           playSpecial('jumping', 0.9);
         }
         if (now > modeEndsRef.current) enterIdle(2);
-      } else if (mode === 'idle' && !perchRef.current && (Math.abs(b.vx) > 1.5 || b.vy > 2)) {
+      } else if (mode === 'idle' && !sleepingRef.current && !perchRef.current && (Math.abs(b.vx) > 1.5 || b.vy > 2)) {
         startChase();
       }
 
       // Cursor zooming past nearby → she gives chase for a moment.
       const m = mouseRef.current;
-      if (mode === 'idle' && !perchRef.current && m.speed > 25 && now - m.t < 120) {
+      if (mode === 'idle' && !sleepingRef.current && !perchRef.current && m.speed > 25 && now - m.t < 120) {
         const near = Math.abs(m.x - (x + SIZE / 2)) < 320 && m.y > H - 260;
         if (near) startWalking(m.x - (x + SIZE / 2));
       }
@@ -326,6 +409,18 @@ const DesktopCat = () => {
       else if (modeRef.current === 'idle' || modeRef.current === 'special') chooseNext();
     }, 1000 / 30);
 
+    let lastScroll = { y: window.scrollY, t: Date.now(), said: 0 };
+    const onScroll = () => {
+      const now = Date.now();
+      const v = Math.abs(window.scrollY - lastScroll.y) / Math.max(1, now - lastScroll.t);
+      lastScroll = { ...lastScroll, y: window.scrollY, t: now };
+      if (v > 4 && now - lastScroll.said > 8000 && !sleepingRef.current) {
+        lastScroll.said = now;
+        showTip(pick(SCROLL_LINES));
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
     const onResize = () => {
       xRef.current = Math.min(window.innerWidth - SIZE - 8, Math.max(8, xRef.current));
       setPos({ x: xRef.current, y: yRef.current });
@@ -335,10 +430,11 @@ const DesktopCat = () => {
     return () => {
       clearInterval(id);
       window.removeEventListener('resize', onResize);
+      window.removeEventListener('scroll', onScroll);
       clearTimeout(clickTimerRef.current);
       clearTimeout(tipTimerRef.current);
     };
-  }, [bounds, chooseNext, enterIdle, playSpecial, setAnim, showTip, startChase, startWalking]);
+  }, [bounds, chooseNext, enterIdle, playSpecial, setAnim, setSleeping, showTip, startChase, startWalking]);
 
   // Mouse near → curious look; track cursor speed for chasing.
   useEffect(() => {
@@ -350,8 +446,9 @@ const DesktopCat = () => {
       m.x = e.clientX;
       m.y = e.clientY;
       m.t = now;
+      moodRef.current.lastSeen = now;
 
-      if (draggingRef.current || modeRef.current !== 'idle' || showIntroRef.current) return;
+      if (draggingRef.current || modeRef.current !== 'idle' || showIntroRef.current || sleepingRef.current) return;
       const dx = e.clientX - (xRef.current + SIZE / 2);
       const dy = e.clientY - (window.innerHeight - yRef.current - SIZE / 2);
       const dist = Math.hypot(dx, dy);
@@ -403,6 +500,9 @@ const DesktopCat = () => {
         jumpRef.current = null;
         velRef.current = 0;
         setAnim('working');
+        if (sleepingRef.current) setSleeping(false);
+        moodRef.current.annoyed += 25;
+        showTip(pick(DRAG_LINES));
       }
       if (!draggingRef.current) return;
       const nx = Math.min(window.innerWidth - SIZE - 8, Math.max(8, ev.clientX - dragOffsetRef.current.x));
@@ -430,16 +530,43 @@ const DesktopCat = () => {
         return;
       }
 
+      const mood = moodRef.current;
+      mood.lastSeen = Date.now();
+      if (sleepingRef.current) {
+        setSleeping(false);
+        mood.annoyed += 15;
+        playSpecial('waiting', 1.6);
+        showTip(pick(SLEEPY_LINES));
+        return;
+      }
       if (clickTimerRef.current) {
         clearTimeout(clickTimerRef.current);
         clickTimerRef.current = null;
         playSpecial('waving', 1.5);
-        showTip('hi hi~');
+        showTip(mood.affection > 70 ? 'hi hi, my favourite human~' : 'hi hi~');
       } else {
         clickTimerRef.current = setTimeout(() => {
           clickTimerRef.current = null;
-          playSpecial('belly', 2.6);
-          showTip('belly rub 💕');
+          const now = Date.now();
+          const tooSoon = now - mood.lastPet < 1500;
+          mood.lastPet = now;
+          if (tooSoon) mood.annoyed += 22;
+          if (mood.annoyed > 60) {
+            // Had enough: walks off in a huff.
+            showTip(pick(ANNOYED_LINES));
+            const awayFromMouse = mouseRef.current.x < xRef.current + SIZE / 2 ? 1 : -1;
+            if (perchRef.current) jumpTo(null, xRef.current + awayFromMouse * 260);
+            else startWalking(awayFromMouse);
+          } else if (mood.affection < 30 && Math.random() < 0.5) {
+            // Cats decide when they want pets.
+            playSpecial('review', 1.6);
+            showTip(pick(ALOOF_LINES));
+            mood.affection += 6;
+          } else {
+            mood.affection = Math.min(100, mood.affection + 10);
+            playSpecial('belly', 2.6);
+            showTip(pick(PET_LINES));
+          }
         }, 260);
       }
     };
@@ -520,6 +647,7 @@ const DesktopCat = () => {
           </button>
         )}
 
+        {asleep && !tip && !showIntro && <span className="desktop-cat-zzz" aria-hidden="true">z<b>z</b><i>z</i></span>}
         {tip && !showIntro && <span className="desktop-cat-tip">{tip}</span>}
 
         {showIntro && (
@@ -532,8 +660,8 @@ const DesktopCat = () => {
             </button>
             <p className="desktop-cat-card-name">hi, i’m julie 🐾</p>
             <p className="desktop-cat-card-body">
-              yuxin’s desktop cat. i climb on the headings, chase your mouse and play with my yarn.
-              throw it for me! click me for a belly rub, or drag me somewhere new.
+              yuxin’s desktop cat. i climb on things, judge the projects and chase my yarn.
+              pets are welcome when i say so. don’t wake me up. don’t pick me up.
             </p>
             <a href={DESKTOP_CAT_URL} target="_blank" rel="noopener noreferrer" className="desktop-cat-learn">
               learn more — want julie on your computer?
