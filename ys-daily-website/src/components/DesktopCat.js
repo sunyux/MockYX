@@ -275,7 +275,7 @@ const DesktopCat = () => {
       return () => clearTimeout(t);
     }
 
-    const t = setTimeout(() => showTip('hi, i’m julie~'), 700);
+    const t = setTimeout(() => showTip('psst… click anything to paint it', 3600), 700);
     return () => clearTimeout(t);
   }, [playSpecial, showTip]);
 

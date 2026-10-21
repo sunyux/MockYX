@@ -338,3 +338,9 @@ a:hover > .arrow, a:hover .arrow { transform: translate(3px, -3px); }
 .desktop-cat-zzz b { font-size: 14px; animation-delay: .4s; }
 .desktop-cat-zzz i { font-size: 11px; animation-delay: .8s; }
 @keyframes zzz { 0%, 100% { transform: translateY(0); opacity: .3; } 50% { transform: translateY(-8px); opacity: 1; } }
+
+/* black & white page; Julie and her yarn stay in color, clicked parts get painted */
+.paint { filter: grayscale(1); transition: filter 1.2s ease; }
+.paint.in-color, .all-color .paint { filter: none; }
+.paint:not(.in-color) { cursor: crosshair; }
+.paint:not(.in-color) a, .paint:not(.in-color) button { cursor: pointer; }

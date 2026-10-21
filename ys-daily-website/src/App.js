@@ -81,6 +81,14 @@ const Arrow = () => <span className="arrow" aria-hidden="true">↗</span>;
 
 export default function App() {
   const [clock, setClock] = useState('');
+  // The page starts black & white; clicking a part paints it in color.
+  const [painted, setPainted] = useState(() => new Set());
+  const paint = (key, base) => `${base} paint${painted.has(key) ? ' in-color' : ''}`;
+  const onPaint = (e) => {
+    const el = e.target.closest('[data-paint]');
+    if (!el || painted.has(el.dataset.paint)) return;
+    setPainted(prev => new Set(prev).add(el.dataset.paint));
+  };
 
   // "Live" CV: a ticking Portland clock in the header.
   useEffect(() => {
@@ -92,8 +100,8 @@ export default function App() {
   }, []);
 
   return (
-    <div className="cv">
-      <header className="bar">
+    <div className={`cv${painted.size >= 9 ? ' all-color' : ''}`} onClickCapture={onPaint}>
+      <header className={paint('bar', 'bar')} data-paint="bar">
         <a href="#top" className="mark">YS</a>
         <nav>
           {NAV.map(([id, label]) => <a key={id} href={`#${id}`}>{label}</a>)}
@@ -101,7 +109,7 @@ export default function App() {
         <span className="live"><i /> Portland {clock}</span>
       </header>
 
-      <section id="top" className="hero">
+      <section id="top" className={paint('top', 'hero')} data-paint="top">
         <p className="eyebrow">Live CV · updated Oct 2026</p>
         <h1>Yuxin<br />Sun<span className="dot">.</span></h1>
         <div className="hero-foot">
@@ -114,11 +122,11 @@ export default function App() {
         <img className="hero-img" src={`${PUB}/img/yuxin.jpg`} alt="Yuxin Sun" />
       </section>
 
-      <div className="marquee" aria-hidden="true">
+      <div className={paint('marquee', 'marquee')} data-paint="marquee" aria-hidden="true">
         <div>{Array(4).fill('Three.js — React — PyTorch — WebGL — Web Audio — Figma — ').join('')}</div>
       </div>
 
-      <section id="now" className="block">
+      <section id="now" className={paint('now', 'block')} data-paint="now">
         <h2 className="huge">Now<sup>03</sup></h2>
         <p className="lede">Recent projects, live on the web.</p>
         <div className="recent">
@@ -142,7 +150,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="work" className="block">
+      <section id="work" className={paint('work', 'block')} data-paint="work">
         <h2 className="huge">Work<sup>{String(WORK.length).padStart(2, '0')}</sup></h2>
         <p className="lede">Earlier projects from school and side work.</p>
         <div className="work">
@@ -155,7 +163,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="gallery" className="block dark">
+      <section id="gallery" className={paint('gallery', 'block dark')} data-paint="gallery">
         <h2 className="huge">3D Gallery</h2>
         <p className="lede">Models I made: drag to orbit, hover to zoom.</p>
         <div className="frame">
@@ -164,7 +172,7 @@ export default function App() {
         <a className="more" href="https://sunyux.github.io/ModelsGallery/" target="_blank" rel="noreferrer">Open full screen <Arrow /></a>
       </section>
 
-      <section id="about" className="block">
+      <section id="about" className={paint('about', 'block')} data-paint="about">
         <h2 className="huge">About</h2>
         <div className="about">
           <div className="memes">
@@ -202,7 +210,7 @@ export default function App() {
         </div>
       </section>
 
-      <section id="cv" className="block cvblock">
+      <section id="cv" className={paint('cv', 'block cvblock')} data-paint="cv">
         <h2 className="huge">CV</h2>
         <div className="timeline">
           <h3 className="sub">Experience</h3>
@@ -223,7 +231,7 @@ export default function App() {
         </object>
       </section>
 
-      <footer className="end">
+      <footer className={paint('end', 'end')} data-paint="end">
         <h2 className="huge">Say hi<span className="dot">.</span></h2>
         <div className="contacts">
           <a href="mailto:sunyux411@gmail.com">sunyux411@gmail.com <Arrow /></a>
