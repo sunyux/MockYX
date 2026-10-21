@@ -167,7 +167,7 @@ export default function App() {
       <section id="about" className="block">
         <h2 className="huge">About</h2>
         <div className="about">
-          <img src={`${PUB}/img/Waving.jpg`} alt="Yuxin waving" loading="lazy" />
+          <img src={`${PUB}/work/Job.jpg`} alt="Meme: can someone give me a job plz" loading="lazy" />
           <div>
             <p className="big-p">M.Eng. in Computer Science from Oregon State, B.S. from Portland State. I work across full-stack web, 3D and data visualization, and I love anything that turns code into something you can play with.</p>
             <div className="skills">
