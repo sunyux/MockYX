@@ -1,6 +1,7 @@
 // App.js — Yuxin Sun, live CV
 import React, { useEffect, useState } from 'react';
 import './cv.css';
+import DesktopCat from './components/DesktopCat';
 
 const PUB = process.env.PUBLIC_URL;
 
@@ -8,6 +9,7 @@ const RECENT = [
   {
     no: '01',
     title: 'Mon Français',
+    shot: 'mon-francais.jpg',
     kind: 'French study site',
     year: '2026',
     desc: 'A topic-based A1 French course where every topic is a little hand-painted world: vocab, stories, verb conjugation on hover, quizzes and a level-by-level voyage.',
@@ -19,6 +21,7 @@ const RECENT = [
   {
     no: '02',
     title: 'Dictée',
+    shot: 'dictation.jpg',
     kind: 'French dictation drills',
     year: '2026',
     desc: 'Drills built from 你好法语 textbook PDFs: vocabulary, sentence and full-text dictation with text-to-speech, speech recognition and cloud-synced progress.',
@@ -30,6 +33,7 @@ const RECENT = [
   {
     no: '03',
     title: 'Biosphere37',
+    shot: 'biosphere37.jpg',
     kind: 'Music visualiser',
     year: '2026',
     desc: 'A Three.js galaxy you play with a MIDI keyboard: notes become stars and neon routes, driven over Web MIDI or a browser-simulated FM-1 synth.',
@@ -49,10 +53,22 @@ const WORK = [
 ];
 
 const SKILLS = {
-  Languages: ['Python', 'C++', 'JavaScript', 'HTML / CSS', 'SQL', 'PHP'],
-  Tools: ['PyTorch', 'React', 'Three.js', 'Docker', 'Linux', 'Figma', 'MongoDB', 'Laravel', 'Firebase'],
-  Fields: ['Full-stack web', 'UI design', 'Deep learning', 'Computer vision', 'Creative coding', 'VR & games'],
+  Languages: ['TypeScript', 'JavaScript', 'Python', 'C++', 'Java', 'C#', 'HTML / CSS', 'SQL', 'PHP'],
+  Tools: ['React', 'React Native', 'Node.js', 'Laravel', 'Three.js', 'Docker', 'MongoDB', 'MySQL', 'PyTorch', 'Tailwind', 'Blender', 'Figma'],
+  Fields: ['Full-stack web', '3D & data visualization', 'Google Cloud', 'Telemetry pipelines', 'Agile (Scrum, SAFe)'],
 };
+
+const EXPERIENCE = [
+  { when: 'Jul 2025 — Now', role: 'Web Assistant', org: 'The Ladies Club', note: 'Built the club’s site and migrated it from Google Sites to WordPress, with PHP and JavaScript features and editable pages for non-technical members.' },
+  { when: 'Jul 2024 — Dec 2025', role: 'Peer Advisor', org: 'OSU Global Opportunities', note: 'Advised students on international programs; built and maintained program pages and dashboards in Drupal, WordPress and Canvas.' },
+  { when: 'Jan — Dec 2025', role: 'Sensory Technician', org: 'OSU Food Innovation Center', note: 'Scheduled participants and supported program operations with Outlook and Access.' },
+  { when: 'Jan — Mar 2024', role: 'Volunteer analyst', org: 'Oregon Research & Teaching SOC', note: 'Investigated security alerts, wrote rules to cut false positives, ran penetration tests and reported findings.' },
+];
+
+const EDUCATION = [
+  { when: '2023 — 2025', what: 'M.Eng. Computer Science', where: 'Oregon State University' },
+  { when: '2019 — 2023', what: 'B.S. Computer Science', where: 'Portland State University' },
+];
 
 const DAILY = [
   ['Climb.jpg', 'Climbing'], ['Ceramics.jpg', 'Ceramics'], ['Crochet.jpg', 'Crochet'],
@@ -89,7 +105,7 @@ export default function App() {
         <p className="eyebrow">Live CV · updated Oct 2026</p>
         <h1>Yuxin<br />Sun<span className="dot">.</span></h1>
         <div className="hero-foot">
-          <p>Software engineer &amp; creative coder. MS Computer Science, Oregon State. I build web tools, 3D worlds and machine-learning things.</p>
+          <p>Software engineer &amp; creative coder in Portland. M.Eng. Computer Science, Oregon State ’25. I build web tools, 3D worlds and data visualizations.</p>
           <div className="ctas">
             <a className="btn solid" href={`${PUB}/Resume.pdf`} download="Yuxin_Sun_Resume.pdf">Download CV</a>
             <a className="btn" href="#now">See projects</a>
@@ -108,6 +124,9 @@ export default function App() {
         <div className="recent">
           {RECENT.map(p => (
             <article key={p.no} className={`proj ${p.tone}`}>
+              <a className="shot" href={p.link} target="_blank" rel="noreferrer">
+                <img src={`${PUB}/work/${p.shot}`} alt={`${p.title} screenshot`} loading="lazy" />
+              </a>
               <div className="proj-head">
                 <span>{p.no}</span><span>{p.kind}</span><span>{p.year}</span>
               </div>
@@ -150,7 +169,7 @@ export default function App() {
         <div className="about">
           <img src={`${PUB}/img/Waving.jpg`} alt="Yuxin waving" loading="lazy" />
           <div>
-            <p className="big-p">Master’s in Computer Science from Oregon State University. I work across full-stack web development, UI design, deep learning and computer vision, and I love VR, games and anything that turns code into something you can play with.</p>
+            <p className="big-p">M.Eng. in Computer Science from Oregon State, B.S. from Portland State. I work across full-stack web, 3D and data visualization, and I love anything that turns code into something you can play with.</p>
             <div className="skills">
               {Object.entries(SKILLS).map(([k, list]) => (
                 <div key={k}><h4>{k}</h4><ul>{list.map(s => <li key={s}>{s}</li>)}</ul></div>
@@ -168,6 +187,16 @@ export default function App() {
 
       <section id="cv" className="block cvblock">
         <h2 className="huge">CV</h2>
+        <div className="timeline">
+          <h3 className="sub">Experience</h3>
+          {EXPERIENCE.map(e => (
+            <div key={e.role} className="row"><span>{e.when}</span><div><h4>{e.role} <em>· {e.org}</em></h4><p>{e.note}</p></div></div>
+          ))}
+          <h3 className="sub">Education</h3>
+          {EDUCATION.map(e => (
+            <div key={e.what} className="row"><span>{e.when}</span><div><h4>{e.what} <em>· {e.where}</em></h4></div></div>
+          ))}
+        </div>
         <div className="cv-actions">
           <a className="btn solid" href={`${PUB}/Resume.pdf`} download="Yuxin_Sun_Resume.pdf">Download PDF</a>
           <a className="btn" href={`${PUB}/Resume.pdf`} target="_blank" rel="noreferrer">Open in new tab</a>
@@ -184,8 +213,9 @@ export default function App() {
           <a href="https://www.linkedin.com/in/yuxin-sun-psu/" target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
           <a href="https://github.com/sunyux" target="_blank" rel="noreferrer">GitHub <Arrow /></a>
         </div>
-        <p className="fine">© {new Date().getFullYear()} Yuxin Sun · Portland, OR</p>
+        <p className="fine">971-997-3763 · © {new Date().getFullYear()} Yuxin Sun · Portland, OR</p>
       </footer>
+      <DesktopCat />
     </div>
   );
 }

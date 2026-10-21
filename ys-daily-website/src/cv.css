@@ -147,3 +147,18 @@ a:hover > .arrow, a:hover .arrow { transform: translate(3px, -3px); }
   .marquee div, .live i { animation: none; }
   html { scroll-behavior: auto; }
 }
+
+/* project screenshots */
+.shot { display: block; margin: -28px -28px 0; overflow: hidden; aspect-ratio: 16/10; border-bottom: 2px solid currentColor; }
+.shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform .6s; }
+.proj:hover .shot img { transform: scale(1.04); }
+.proj h3 { margin-top: 8px; }
+
+/* cv timeline */
+.timeline .sub { margin: 64px 0 8px; }
+.timeline .row { display: grid; grid-template-columns: minmax(120px, 220px) 1fr; gap: 24px; padding: 20px 0; border-top: 1px solid var(--line); }
+.timeline .row > span { font-family: var(--mono); font-size: 13px; text-transform: uppercase; padding-top: 6px; }
+.timeline h4 { margin: 0; font-size: clamp(22px, 2.4vw, 34px); letter-spacing: -.03em; font-weight: 800; }
+.timeline h4 em { font-style: normal; font-weight: 400; opacity: .6; }
+.timeline p { margin: 6px 0 0; max-width: 70ch; font-size: 17px; line-height: 1.45; }
+@media (max-width: 640px) { .timeline .row { grid-template-columns: 1fr; gap: 4px; } }
