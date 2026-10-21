@@ -71,9 +71,33 @@ const EDUCATION = [
 ];
 
 const DAILY = [
-  ['Climb.jpg', 'Climbing'], ['Ceramics.jpg', 'Ceramics'], ['Crochet.jpg', 'Crochet'],
-  ['Sking.jpg', 'Skiing'], ['Perlerbeads.jpg', 'Perler beads'], ['Night.jpg', 'Night at the art center'],
+  ['Climb.jpg', 'Climbing', 'hanging on for dear life, one awkward grip at a time'],
+  ['Ceramics.jpg', 'Ceramics', 'making wobbly mugs that somehow hold coffee'],
+  ['Crochet.jpg', 'Crochet', 'looping yarn into chaotic masterpieces of coziness'],
+  ['Sking.jpg', 'Skiing', 'falling down snowy hills in style'],
+  ['Perlerbeads.jpg', 'Perler beads', 'tiny plastic dots → pixel art magic'],
+  ['Night.jpg', 'Art center', 'night out at the art center'],
 ];
+
+const PHRASES = ['Full-stack developer', 'UI & design enthusiast', '3D & creative coder', 'Creative hobby collector', 'Cat person (see: Julie)', 'Proud to be me 🏳️‍🌈'];
+
+// Types out each phrase, then deletes it, like the old homepage.
+function Typewriter() {
+  const [i, setI] = useState(0);
+  const [n, setN] = useState(0);
+  const [del, setDel] = useState(false);
+  useEffect(() => {
+    const full = PHRASES[i];
+    const t = setTimeout(() => {
+      if (!del && n < full.length) setN(n + 1);
+      else if (!del) setDel(true);
+      else if (n > 0) setN(n - 1);
+      else { setDel(false); setI((i + 1) % PHRASES.length); }
+    }, !del && n === full.length ? 1600 : del ? 35 : 70);
+    return () => clearTimeout(t);
+  }, [i, n, del]);
+  return <span className="typer">{[...PHRASES[i]].slice(0, n).join('')}<i aria-hidden="true">|</i></span>;
+}
 
 const NAV = [['now', 'Now'], ['work', 'Work'], ['gallery', '3D'], ['about', 'About'], ['cv', 'CV']];
 
@@ -103,7 +127,8 @@ export default function App() {
 
       <section id="top" className="hero">
         <p className="eyebrow">Live CV · updated Oct 2026</p>
-        <h1>Yuxin<br />Sun<span className="dot">.</span></h1>
+        <p className="iam">hi, i’m a <Typewriter /></p>
+        <h1>Yuxin<br /><span className="nabla">Sun</span><span className="dot">.</span></h1>
         <div className="hero-foot">
           <p>Software engineer &amp; creative coder in Portland. M.Eng. Computer Science, Oregon State ’25. I build web tools, 3D worlds and data visualizations.</p>
           <div className="ctas">
@@ -111,11 +136,14 @@ export default function App() {
             <a className="btn" href="#now">See projects</a>
           </div>
         </div>
-        <img className="hero-img" src={`${PUB}/img/yuxin.jpg`} alt="Yuxin Sun" />
+        <div className="hero-img">
+          <img src={`${PUB}/img/yuxin.jpg`} alt="Yuxin Sun" />
+          <span className="scribble">← me! from China, now in Portland</span>
+        </div>
       </section>
 
       <div className="marquee" aria-hidden="true">
-        <div>{Array(4).fill('Three.js — React — PyTorch — WebGL — Web Audio — Figma — ').join('')}</div>
+        <div>{Array(4).fill('Three.js ✦ climber ✦ React ✦ wobbly-mug maker ✦ PyTorch ✦ crochet chaos ✦ WebGL ✦ perler pixel artist ✦ Figma ✦ skier ✦ ').join('')}</div>
       </div>
 
       <section id="now" className="block">
@@ -196,8 +224,8 @@ export default function App() {
         </div>
         <h3 className="sub">Off the clock</h3>
         <div className="daily">
-          {DAILY.map(([f, t]) => (
-            <figure key={f}><img src={`${PUB}/img/${f}`} alt={t} loading="lazy" /><figcaption>{t}</figcaption></figure>
+          {DAILY.map(([f, t, quip]) => (
+            <figure key={f}><img src={`${PUB}/img/${f}`} alt={t} loading="lazy" /><figcaption>{t}<span className="quip">{quip}</span></figcaption></figure>
           ))}
         </div>
       </section>
