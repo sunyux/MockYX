@@ -86,7 +86,7 @@ body { background: var(--paper); color: var(--ink); }
 .proj { display: flex; flex-direction: column; gap: 18px; padding: 28px; min-height: 460px; color: var(--paper); transition: transform .3s; }
 .proj:hover { transform: translateY(-6px); }
 .proj.blue { background: var(--blue); }
-.proj.red { background: var(--red); }
+.proj.red { background: #c8261a; }
 .proj.acid { background: var(--acid); color: var(--ink); }
 .proj-head { display: flex; justify-content: space-between; gap: 8px; }
 .proj h3 { margin: auto 0 0; font-size: clamp(48px, 5.5vw, 88px); line-height: .9; letter-spacing: -.05em; font-weight: 800; }
@@ -259,6 +259,8 @@ a:hover > .arrow, a:hover .arrow { transform: translate(3px, -3px); }
   top: 0.45rem;
   right: 0.45rem;
   padding: 0.2rem;
+  min-width: 28px;
+  min-height: 28px;
   border-radius: 999px;
   color: #6b6560;
   background: transparent;
@@ -344,3 +346,8 @@ a:hover > .arrow, a:hover .arrow { transform: translate(3px, -3px); }
 .paint.in-color, .all-color .paint { filter: none; }
 .paint:not(.in-color) { cursor: crosshair; }
 .paint:not(.in-color) a, .paint:not(.in-color) button { cursor: pointer; }
+
+.skip { position: absolute; left: 12px; top: -60px; z-index: 1000; padding: 10px 16px; background: var(--ink); color: #fff; font-weight: 700; }
+.skip:focus { top: 12px; }
+main:focus { outline: none; }
+.desktop-cat:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; border-radius: 12px; }

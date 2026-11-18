@@ -126,6 +126,7 @@ export default function App() {
 
   return (
     <div className={`cv${painted.size >= 9 ? ' all-color' : ''}`} onClickCapture={onPaint}>
+      <a href="#main" className="skip">Skip to content</a>
       <header className={paint('bar', 'bar')} data-paint="bar">
         <a href="#top" className="mark">YS</a>
         <nav>
@@ -134,6 +135,7 @@ export default function App() {
         <span className="live"><i /> Portland {clock}</span>
       </header>
 
+      <main id="main" tabIndex={-1}>
       <section id="top" className={paint('top', 'hero')} data-paint="top">
         <p className="eyebrow">Live CV · updated Oct 2026</p>
         <h1>Yuxin<br />Sun<span className="dot">.</span></h1>
@@ -255,6 +257,8 @@ export default function App() {
           <p>Your browser can’t show the PDF here. <a href={`${PUB}/Resume.pdf`}>Download it instead.</a></p>
         </object>
       </section>
+
+      </main>
 
       <footer className={paint('end', 'end')} data-paint="end">
         <h2 className="huge">Say hi<span className="dot">.</span></h2>

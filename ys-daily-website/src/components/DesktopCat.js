@@ -635,8 +635,15 @@ const DesktopCat = () => {
         className="desktop-cat"
         style={{ left: pos.x, bottom: pos.y, width: SIZE, height: SIZE }}
         onPointerDown={onPointerDown}
-        role="img"
-        aria-label="Julie the cat: click for belly rub, double-click to wave, drag to move"
+        onKeyDown={(e) => {
+          if (e.key !== 'Enter' && e.key !== ' ') return;
+          e.preventDefault();
+          playSpecial('belly', 2.6);
+          showTip(pick(PET_LINES));
+        }}
+        tabIndex={0}
+        role="button"
+        aria-label="Julie the cat: press Enter for a belly rub, or click, double-click and drag her"
         title="Julie · click = belly · double-click = wave · drag = move · throw her the yarn!"
       >
         <img src={ANIM[animation] || ANIM.idle} alt="Julie" draggable={false} />
